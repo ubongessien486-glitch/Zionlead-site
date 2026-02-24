@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" fill="none">
+  <defs>
+    <linearGradient id="topGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#00D4E0"/>
+      <stop offset="100%" stop-color="#0094D4"/>
+    </linearGradient>
+    <linearGradient id="bottomGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#00B87A"/>
+      <stop offset="100%" stop-color="#00D455"/>
+    </linearGradient>
+  </defs>
+  <!-- Top half of hexagon (cyan/blue) -->
+  <path d="M60 4 L108 30 L108 70 L12 70 L12 30 Z" fill="url(#topGrad)"/>
+  <!-- Bottom half of hexagon (green) -->
+  <path d="M12 70 L108 70 L108 110 L60 136 L12 110 Z" fill="url(#bottomGrad)"/>
+  <!-- Z zigzag top half (white arrow pointing right then left) -->
+  <path d="M32 22 L78 22 L52 48 L78 48 L60 66 L32 48 L56 48 L32 22Z" fill="white" fill-opacity="0.92"/>
+  <!-- Z zigzag bottom half (white arrow pointing left then right) -->
+  <path d="M60 74 L88 92 L62 92 L88 118 L42 118 L68 92 L42 92 L60 74Z" fill="white" fill-opacity="0.92"/>
+</svg>
