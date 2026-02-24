@@ -35,14 +35,18 @@ export default function Hero() {
             <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 w-full">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-50 rounded-full text-xs font-semibold text-cyan-600 border border-cyan-200 mb-8 tracking-wider uppercase">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-50 rounded-full text-xs font-semibold text-cyan-600 border border-cyan-200 mb-6 tracking-wider uppercase">
                             <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
                             Premier IT Solutions Company
                         </div>
-                        <h1 ref={titleRef} className="font-montserrat font-black text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
-                            <span className="text-slate-800 block">Pioneering</span>
-                            <span className="text-gradient-cyan block">Possibilities…</span>
+                        {/* Company Name — Bold & unmistakable */}
+                        <h1 ref={titleRef} className="font-montserrat font-black leading-tight mb-3">
+                            <span className="text-gradient-cyan block text-6xl lg:text-7xl xl:text-8xl tracking-tight">Zionlead</span>
                         </h1>
+                        {/* Tagline — clearly secondary to the brand name */}
+                        <p className="font-montserrat font-semibold text-2xl lg:text-3xl text-slate-600 mb-6 tracking-wide italic">
+                            "Pioneering Possibilities…"
+                        </p>
                         <p ref={subRef} className="text-slate-500 text-lg font-light leading-relaxed max-w-xl mb-10">
                             We design, build, and manage innovative IT solutions that transform businesses{' '}
                             <em className="text-cyan-600 not-italic font-medium">remotely</em>,{' '}
