@@ -58,7 +58,7 @@ export default function Header() {
                 <Link to="/" className="flex items-center gap-3 group" aria-label="Zionlead Home">
                     <img src="/zionlead-logo.jpg" alt="Zionlead Technology Ltd" className="h-16 w-auto drop-shadow-md" />
                     <span className="font-montserrat font-bold text-xl tracking-tight hidden sm:block">
-                        <span className="text-gradient-cyan">Zion</span><span className="text-slate-800">lead</span>
+                        <span className="text-gradient-cyan">Zion</span><span className="text-blue-900">lead</span>
                     </span>
                 </Link>
 

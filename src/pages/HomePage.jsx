@@ -54,13 +54,10 @@ export default function HomePage() {
                 <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 w-full">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-50 rounded-full text-xs font-semibold text-cyan-600 border border-cyan-200 mb-8 tracking-wider uppercase">
-                                <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-                                Premier IT Solutions Company
-                            </div>
+
                             <h1 ref={heroTitle} className="font-montserrat font-black text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
                                 <span className="text-slate-800 block">Pioneering</span>
-                                <span className="text-gradient-cyan block">Possibilities…</span>
+                                <span className="text-gradient-cyan block">Possibilities</span>
                             </h1>
                             <p ref={heroSub} className="text-slate-500 text-lg font-light leading-relaxed max-w-xl mb-10">
                                 We design, build, and manage innovative IT solutions that transform businesses{' '}
@@ -134,10 +131,10 @@ export default function HomePage() {
                                 Your Trusted Partner in{' '}
                                 <span className="text-gradient-cyan">Digital Transformation</span>
                             </h2>
-                            <p className="text-slate-500 text-lg leading-relaxed mb-4">
+                            <p className="text-slate-500 text-lg leading-relaxed mb-4 text-justify">
                                 <span className="text-slate-800 font-semibold">Zionlead Technology Limited</span> is a premier IT solutions company dedicated to excellence in training, outsourcing, infrastructure deployment, procurement, and software development.
                             </p>
-                            <p className="text-slate-500 text-lg leading-relaxed mb-4">
+                            <p className="text-slate-500 text-lg leading-relaxed mb-4 text-justify">
                                 We operate remotely with a global mindset, delivering secure, scalable, and cost-effective technology solutions to organizations of all sizes.
                             </p>
                             <p className="text-slate-800 text-lg font-semibold mb-2">We are not just service providers.</p>
