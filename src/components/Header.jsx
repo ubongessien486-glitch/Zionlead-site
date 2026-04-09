@@ -45,8 +45,8 @@ export default function Header() {
             <div className={`pointer-events-auto w-full max-w-5xl rounded-full transition-all duration-500 flex items-center justify-between px-6 py-3 border ${scrolled ? 'bg-white/70 backdrop-blur-xl border-white/40 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)]' : 'bg-transparent border-transparent'}`}>
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity" aria-label="Zionlead Home">
-                    <img src="/zionlead-logo.jpg" alt="Zionlead" className="h-10 w-auto rounded-full shadow-sm" />
-                    <span className="font-display font-semibold text-lg tracking-tight text-slate-900 hidden sm:block">
+                    <img src="/zionlead-logo.jpg" alt="Zionlead" className="h-12 w-auto object-contain" />
+                    <span className="font-display font-semibold text-xl tracking-tight text-slate-900 hidden sm:block">
                         Zion<span className="text-[#007AFF]">lead</span>
                     </span>
                 </Link>

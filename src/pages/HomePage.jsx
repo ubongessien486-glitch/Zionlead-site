@@ -89,9 +89,9 @@ export default function HomePage() {
                         </div>
                         <div ref={heroImg} className="relative hidden lg:block">
                             <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/30 to-emerald-200/30 rounded-3xl blur-3xl scale-90" />
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-white/50 bg-white flex items-center justify-center p-12 h-[480px]">
-                                <img src="/zionlead-logo.jpg" alt="Zionlead Logo" className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent pointer-events-none" />
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-white/50 bg-slate-100">
+                                <img src="/zionlead_coders.png" alt="Young Nigerian Gen-Z coders excited at Zionlead" className="w-full h-[480px] object-cover scale-105 hover:scale-100 transition-transform duration-1000 ease-out" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent pointer-events-none" />
                                 <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg border border-slate-100">
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#007AFF] to-cyan-500 flex items-center justify-center shadow-inner">
