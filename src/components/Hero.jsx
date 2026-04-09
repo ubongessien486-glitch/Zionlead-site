@@ -1,113 +1,75 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowRight, ChevronDown, Globe, Shield, Cpu } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import { gsap } from 'gsap';
 
 export default function Hero() {
+    const heroRef = useRef(null);
     const titleRef = useRef(null);
-    const subRef = useRef(null);
+    const titleRef2 = useRef(null);
+    const textRef = useRef(null);
     const ctaRef = useRef(null);
-    const vizRef = useRef(null);
+    const imgRef = useRef(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.fromTo(titleRef.current, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1 })
-            .fromTo(subRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.4')
-            .fromTo(ctaRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.4')
-            .fromTo(vizRef.current, { opacity: 0, x: 60, scale: 0.95 }, { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'back.out(1.2)' }, '-=0.8');
+        const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 } });
+        
+        tl.fromTo(titleRef.current, { y: 100, opacity: 0, rotateX: 20 }, { y: 0, opacity: 1, rotateX: 0, delay: 0.2 })
+          .fromTo(titleRef2.current, { y: 100, opacity: 0, rotateX: 20 }, { y: 0, opacity: 1, rotateX: 0 }, "-=1")
+          .fromTo(textRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.8")
+          .fromTo(ctaRef.current, { y: 30, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 1 }, "-=0.9")
+          .fromTo(imgRef.current, { y: 80, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 1.5, ease: 'expo.out' }, "-=1");
     }, []);
 
     return (
-        <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-cyan-50/30 to-emerald-50/20">
-            {/* Subtle decorative elements */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-cyan-100/40 rounded-full blur-3xl" />
-                <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-emerald-100/30 rounded-full blur-3xl" />
-            </div>
+        <section ref={heroRef} className="relative min-h-[100svh] pt-32 pb-20 flex flex-col items-center justify-center overflow-hidden bg-[#fafafa]">
+            {/* Very subtle radial light */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-b from-blue-100/40 to-transparent blur-3xl opacity-50 rounded-full pointer-events-none" />
 
-            <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-4 z-10 opacity-40">
-                {[Globe, Shield, Cpu].map((Icon, i) => (
-                    <div key={i} className="w-10 h-10 bg-white shadow-md rounded-xl flex items-center justify-center animate-float border border-slate-100" style={{ animationDelay: `${i * 0.8}s` }}>
-                        <Icon className="w-5 h-5 text-cyan-500" />
-                    </div>
-                ))}
-            </div>
-
-            <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 w-full">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-
-                        {/* Company Name — Bold & unmistakable */}
-                        <h1 ref={titleRef} className="font-montserrat font-black leading-tight mb-3">
-                            <span className="text-gradient-cyan block text-6xl lg:text-7xl xl:text-8xl tracking-tight">Zionlead</span>
-                        </h1>
-                        {/* Tagline — clearly secondary to the brand name */}
-                        <p className="font-montserrat font-semibold text-2xl lg:text-3xl text-slate-600 mb-6 tracking-wide italic">
-                            "Pioneering Possibilities"
-                        </p>
-                        <p ref={subRef} className="text-slate-500 text-lg font-light leading-relaxed max-w-xl mb-10">
-                            We design, build, and manage innovative IT solutions that transform businesses{' '}
-                            <em className="text-cyan-600 not-italic font-medium">remotely</em>,{' '}
-                            <em className="text-emerald-600 not-italic font-medium">efficiently</em>, and{' '}
-                            <em className="text-slate-800 not-italic font-medium">excellently</em>.
-                        </p>
-                        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
-                            <button onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })} className="group flex items-center gap-2 px-8 py-4 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
-                                Get a Consultation <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
-                            <button onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })} className="group flex items-center gap-2 px-8 py-4 font-semibold text-cyan-600 border border-cyan-300 rounded-full hover:border-cyan-500 hover:bg-cyan-50 hover:scale-105 transition-all duration-300">
-                                Explore Our Services <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-                            </button>
+            <div className="relative z-10 max-w-5xl mx-auto px-6 w-full flex flex-col items-center text-center">
+                
+                <div className="perspective-1000">
+                    <h1 className="font-display font-semibold tracking-tighter text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-[1.05] text-slate-900 mb-2">
+                        <div className="overflow-hidden p-1">
+                            <span ref={titleRef} className="block text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-600">
+                                Perfecting
+                            </span>
                         </div>
-                        <div className="mt-10 flex items-center gap-4">
-                            <div className="flex -space-x-3">
-                                {[
-                                    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-                                    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face',
-                                    'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face',
-                                    'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&h=80&fit=crop&crop=face',
-                                ].map((src, i) => (
-                                    <img key={i} src={src} alt="" className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-sm" />
-                                ))}
-                            </div>
-                            <p className="text-slate-500 text-sm"><span className="text-slate-800 font-semibold">500+</span> businesses transformed globally</p>
+                        <div className="overflow-hidden p-1">
+                            <span ref={titleRef2} className="block">
+                                IT Innovation.
+                            </span>
                         </div>
-                    </div>
-
-                    {/* Hero Image — young tech team */}
-                    <div ref={vizRef} className="relative hidden lg:block">
-                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/30 to-emerald-200/30 rounded-3xl blur-3xl scale-90" />
-                        <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-white/50">
-                            <img
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
-                                alt="Young tech team collaborating in a modern office"
-                                className="w-full h-[480px] object-cover"
-                            />
-                            {/* Overlay gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
-                            {/* Floating badge */}
-                            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg border border-white/50">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center">
-                                        <Cpu className="w-5 h-5 text-white" />
-                                    </div>
-                                    <div>
-                                        <p className="text-slate-800 font-semibold text-sm">Remote-First Team</p>
-                                        <p className="text-slate-400 text-xs">Global Talent, Local Impact</p>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Stats badge */}
-                            <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-lg border border-white/50">
-                                <p className="text-emerald-600 font-bold text-lg">98%</p>
-                                <p className="text-slate-400 text-xs">Client Satisfaction</p>
-                            </div>
-                        </div>
-                    </div>
+                    </h1>
                 </div>
-            </div>
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 z-10">
-                <span className="text-xs tracking-widest text-slate-400 uppercase">Scroll</span>
-                <div className="w-[1px] h-10 bg-gradient-to-b from-cyan-400 to-transparent animate-pulse" />
+
+                <p ref={textRef} className="text-slate-500 text-lg sm:text-xl md:text-2xl font-medium tracking-tight max-w-2xl mt-6 mb-10 text-balance leading-snug">
+                    Transforming businesses with premium software development, remote IT management, and elite tech outsourcing.
+                </p>
+
+                <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-4 mb-20">
+                    <button onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })} className="flex items-center justify-center gap-2 px-8 py-4 font-medium text-white bg-black rounded-full hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl">
+                        Start your project
+                    </button>
+                    <button onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })} className="flex items-center justify-center gap-2 px-8 py-4 font-medium text-black bg-slate-100 rounded-full hover:bg-slate-200 hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto">
+                        Explore services <ArrowRight className="w-4 h-4 ml-1 opacity-50" />
+                    </button>
+                </div>
+
+                {/* Hero Image in dynamic frame */}
+                <div ref={imgRef} className="relative w-full max-w-6xl aspect-[16/9] sm:aspect-[2.35/1] mt-auto rounded-3xl overflow-hidden shadow-2xl shadow-slate-200 border border-black/5 bg-slate-100">
+                    <img
+                        src="/nigerian_genz_coders.png"
+                        alt="Excited Nigerian Gen Z team coding together"
+                        className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-[2s] ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                    <button className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-3 flex items-center gap-3 transition-colors duration-300 text-sm font-medium group">
+                        <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                             <Play className="w-3.5 h-3.5 ml-0.5 fill-black" />
+                        </div>
+                        Watch our story
+                    </button>
+                </div>
             </div>
         </section>
     );

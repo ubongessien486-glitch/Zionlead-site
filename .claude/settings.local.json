@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/LENOVO/.gemini/antigravity/playground/axial-eagle/elite-global/**)",
+      "Bash(vercel whoami:*)",
+      "Bash(vercel deploy:*)",
+      "Bash(vercel link:*)",
+      "Bash(ls -la dist/*.png)",
+      "WebFetch(domain:elite-global-sepia.vercel.app)",
+      "Bash(rm:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
