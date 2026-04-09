@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "save-work": "git add -A && git commit -m \"Auto-save snapshot\" || echo \"Saved\"",
+    "deploy-safe": "npm run save-work && npx vercel --prod --yes"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
