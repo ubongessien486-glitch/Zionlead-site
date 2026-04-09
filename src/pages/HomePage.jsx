@@ -89,12 +89,12 @@ export default function HomePage() {
                         </div>
                         <div ref={heroImg} className="relative hidden lg:block">
                             <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/30 to-emerald-200/30 rounded-3xl blur-3xl scale-90" />
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-white/50">
-                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Young tech team collaborating" className="w-full h-[480px] object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-white/50 bg-slate-100">
+                                <img src="/nigerian_genz_coders.png" alt="Young Nigerian Gen-Z coders excited" className="w-full h-[480px] object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent pointer-events-none" />
                                 <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg border border-white/50">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center shadow-inner">
                                             <Cpu className="w-5 h-5 text-white" />
                                         </div>
                                         <div>
@@ -102,10 +102,6 @@ export default function HomePage() {
                                             <p className="text-slate-400 text-xs">Global Talent, Local Impact</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-lg border border-white/50">
-                                    <p className="text-emerald-600 font-bold text-lg">98%</p>
-                                    <p className="text-slate-400 text-xs">Client Satisfaction</p>
                                 </div>
                             </div>
                         </div>
