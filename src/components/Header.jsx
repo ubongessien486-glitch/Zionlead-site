@@ -44,10 +44,10 @@ export default function Header() {
         <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4 transition-all duration-700 w-full pointer-events-none">
             <div className={`pointer-events-auto w-full max-w-5xl rounded-full transition-all duration-500 flex items-center justify-between px-6 py-3 border ${scrolled ? 'bg-white/70 backdrop-blur-xl border-white/40 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)]' : 'bg-transparent border-transparent'}`}>
                 {/* Logo */}
-                <Link to="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity" aria-label="Zionlead Home">
-                    <img src="/zionlead-logo.jpg" alt="Zionlead" className="h-12 w-auto object-contain" />
-                    <span className="font-display font-semibold text-xl tracking-tight text-slate-900 hidden sm:block">
-                        Zion<span className="text-[#007AFF]">lead</span>
+                <Link to="/" className="flex items-center gap-3 group hover:opacity-90 transition-opacity" aria-label="Zionlead Home">
+                    <img src="/zionlead-logo.jpg" alt="Zionlead" className="h-14 w-auto object-contain mix-blend-multiply saturate-150 contrast-125 drop-shadow-md" />
+                    <span className="font-display font-semibold text-xl tracking-tight text-gradient-logo hidden sm:block">
+                        Zionlead
                     </span>
                 </Link>
 

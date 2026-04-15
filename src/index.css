@@ -50,12 +50,13 @@
     background-clip: text;
   }
 
-  .text-gradient-white {
-    background: linear-gradient(135deg, #0f172a, #0e7490);
+  .text-gradient-logo {
+    background: linear-gradient(135deg, #007AFF, #06b6d4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
 
   .border-gradient {
     border-image: linear-gradient(135deg, #06b6d4, #10b981) 1;

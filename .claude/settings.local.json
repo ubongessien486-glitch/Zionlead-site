@@ -9,7 +9,9 @@
       "WebFetch(domain:elite-global-sepia.vercel.app)",
       "Bash(rm:*)",
       "Bash(npm install:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "WebFetch(domain:zionlead.vercel.app)",
+      "Bash(vercel:*)"
     ]
   }
 }

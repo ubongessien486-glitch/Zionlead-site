@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services = [
     { icon: GraduationCap, title: 'IT Training', desc: 'Equipping individuals and organizations with practical, hands-on technology skills.', color: 'from-cyan-500 to-blue-500', accent: 'text-cyan-600' },
-    { icon: Users, title: 'IT Outsourcing', desc: 'Providing expert IT professionals and managed services to support your operations.', color: 'from-emerald-500 to-teal-500', accent: 'text-emerald-600' },
+    { icon: Users, title: 'IT Outsourcing', desc: 'Providing expert IT professionals and managed services to support your operations.', color: 'from-emerald-500 to-teal-500', accent: 'text-emerald-600', image: '/zionlead_coders.png' },
     { icon: Cloud, title: 'Infrastructure & Cloud', desc: 'Designing secure, scalable IT environments on-premises and in the cloud.', color: 'from-blue-500 to-cyan-400', accent: 'text-blue-600' },
     { icon: Code2, title: 'Software Development', desc: 'Building powerful custom applications tailored to your business needs.', color: 'from-violet-500 to-cyan-500', accent: 'text-violet-600' },
     { icon: Package, title: 'IT Procurement', desc: 'Sourcing genuine hardware and software solutions at competitive value.', color: 'from-amber-500 to-emerald-500', accent: 'text-amber-600' },
@@ -164,11 +164,15 @@ export default function HomePage() {
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                        {services.slice(0, 3).map((svc) => (
+                        { services.slice(0, 3).map((svc) => (
                             <Link key={svc.title} to="/services" className="bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-2 transition-all duration-500 group">
                                 <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${svc.color} p-[1.5px] mb-5 group-hover:scale-110 transition-transform`}>
                                     <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
-                                        <svc.icon className={`w-7 h-7 ${svc.accent}`} strokeWidth={1.5} />
+                                        {svc.image ? (
+                                            <img src={svc.image} alt={svc.title} className="w-full h-full object-cover rounded-xl" />
+                                        ) : (
+                                            <svc.icon className={`w-7 h-7 ${svc.accent}`} strokeWidth={1.5} />
+                                        )}
                                     </div>
                                 </div>
                                 <h3 className="font-montserrat font-bold text-lg text-slate-800 mb-2">{svc.title}</h3>
