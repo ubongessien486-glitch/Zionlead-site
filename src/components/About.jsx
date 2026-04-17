@@ -47,7 +47,7 @@ export default function About() {
     }, []);
 
     return (
-        <section id="about" ref={sectionRef} className="relative py-28 overflow-hidden bg-slate-50/50">
+        <section id="about" ref={sectionRef} className="relative py-20 sm:py-28 overflow-hidden bg-slate-50/50">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-100/30 rounded-full blur-3xl" />
 
             {/* Circuit divider at top */}

@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services = [
     { icon: GraduationCap, title: 'IT Training', desc: 'Equipping individuals and organizations with practical, hands-on technology skills.', color: 'from-cyan-500 to-blue-500', accent: 'text-cyan-600' },
-    { icon: Users, title: 'IT Outsourcing', desc: 'Providing expert IT professionals and managed services to support your operations.', color: 'from-emerald-500 to-teal-500', accent: 'text-emerald-600', image: '/zionlead_coders.png' },
+    { icon: Users, title: 'IT Outsourcing', desc: 'Providing expert IT professionals and managed services to support your operations.', color: 'from-emerald-500 to-teal-500', accent: 'text-emerald-600' },
     { icon: Cloud, title: 'Infrastructure & Cloud', desc: 'Designing secure, scalable IT environments on-premises and in the cloud.', color: 'from-blue-500 to-cyan-400', accent: 'text-blue-600' },
     { icon: Code2, title: 'Software Development', desc: 'Building powerful custom applications tailored to your business needs.', color: 'from-violet-500 to-cyan-500', accent: 'text-violet-600' },
     { icon: Package, title: 'IT Procurement', desc: 'Sourcing genuine hardware and software solutions at competitive value.', color: 'from-amber-500 to-emerald-500', accent: 'text-amber-600' },

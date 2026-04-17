@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Twitter, Mail, Instagram, Layers } from 'lucide-react';
+import { Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
 
 const socialLinks = [
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
@@ -36,13 +36,12 @@ export default function Footer() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
                     {/* Brand */}
                     <div className="col-span-2 md:col-span-1">
-                        <Link to="/" className="flex items-center gap-3 mb-5 group">
-                            <div className="relative flex items-center justify-center w-11 h-11 rounded-[14px] bg-gradient-to-b from-slate-900 to-black shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] ring-1 ring-white/10 overflow-hidden transform group-hover:scale-105 transition-all duration-300">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <Layers className="w-[22px] h-[22px] text-white/90 drop-shadow-sm" />
+                        <Link to="/" className="flex items-center gap-2 mb-5 hover:opacity-90 transition-opacity">
+                            <div className="h-11 w-11 overflow-hidden flex-shrink-0">
+                                <img src="/zionlead-logo.png" alt="Zionlead Technology Ltd" className="h-full w-auto object-left object-contain mix-blend-multiply" />
                             </div>
-                            <span className="font-display font-bold text-2xl tracking-tight text-slate-900 flex items-center">
-                                Zion<span className="text-slate-400 font-medium">lead</span><span className="text-cyan-500 -ml-0.5">.</span>
+                            <span className="font-display font-bold text-xl tracking-tight text-gradient-cyan">
+                                Zionlead
                             </span>
                         </Link>
                         <p className="text-slate-500 text-sm leading-relaxed mb-5">

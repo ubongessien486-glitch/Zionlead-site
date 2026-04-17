@@ -21,14 +21,14 @@ export default function Hero() {
     }, []);
 
     return (
-        <section ref={heroRef} className="relative min-h-[100svh] pt-32 pb-20 flex flex-col items-center justify-center overflow-hidden bg-[#fafafa]">
+        <section ref={heroRef} className="relative min-h-[100svh] pt-28 pb-16 flex flex-col items-center justify-center overflow-hidden bg-[#fafafa]">
             {/* Very subtle radial light */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-b from-blue-100/40 to-transparent blur-3xl opacity-50 rounded-full pointer-events-none" />
 
             <div className="relative z-10 max-w-5xl mx-auto px-6 w-full flex flex-col items-center text-center">
                 
                 <div className="perspective-1000">
-                    <h1 className="font-display font-semibold tracking-tighter text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-[1.05] text-slate-900 mb-2">
+                    <h1 className="font-display font-semibold tracking-tighter text-[2.8rem] xs:text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] leading-[1.05] text-slate-900 mb-2">
                         <div className="overflow-hidden p-1">
                             <span ref={titleRef} className="block text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-600">
                                 Perfecting
@@ -42,21 +42,21 @@ export default function Hero() {
                     </h1>
                 </div>
 
-                <p ref={textRef} className="text-slate-500 text-lg sm:text-xl md:text-2xl font-medium tracking-tight max-w-2xl mt-6 mb-10 text-balance leading-snug">
+                <p ref={textRef} className="text-slate-500 text-base sm:text-xl md:text-2xl font-medium tracking-tight max-w-2xl mt-4 mb-8 text-balance leading-snug px-2">
                     Transforming businesses with premium software development, remote IT management, and elite tech outsourcing.
                 </p>
 
-                <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-4 mb-20">
-                    <button onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })} className="flex items-center justify-center gap-2 px-8 py-4 font-medium text-white bg-black rounded-full hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl">
+                <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-3 mb-14 w-full sm:w-auto px-4 sm:px-0">
+                    <button onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })} className="flex items-center justify-center gap-2 px-7 py-3.5 font-medium text-white bg-black rounded-full hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl text-sm sm:text-base">
                         Start your project
                     </button>
-                    <button onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })} className="flex items-center justify-center gap-2 px-8 py-4 font-medium text-black bg-slate-100 rounded-full hover:bg-slate-200 hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto">
+                    <button onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })} className="flex items-center justify-center gap-2 px-7 py-3.5 font-medium text-black bg-slate-100 rounded-full hover:bg-slate-200 hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base">
                         Explore services <ArrowRight className="w-4 h-4 ml-1 opacity-50" />
                     </button>
                 </div>
 
                 {/* Hero Image in dynamic frame */}
-                <div ref={imgRef} className="relative w-full max-w-6xl aspect-[16/9] sm:aspect-[2.35/1] mt-auto rounded-3xl overflow-hidden shadow-2xl shadow-slate-200 border border-black/5 bg-slate-100">
+                <div ref={imgRef} className="relative w-full max-w-6xl aspect-[4/3] sm:aspect-[16/9] md:aspect-[2.35/1] mt-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-slate-200 border border-black/5 bg-slate-100">
                     <img
                         src="/nigerian_genz_coders.png"
                         alt="Excited Nigerian Gen Z team coding together"

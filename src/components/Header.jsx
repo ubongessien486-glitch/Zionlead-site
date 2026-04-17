@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Layers } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 const navLinks = [
     { label: 'Home', path: '/' },
@@ -44,13 +44,12 @@ export default function Header() {
         <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4 transition-all duration-700 w-full pointer-events-none">
             <div className={`pointer-events-auto w-full max-w-5xl rounded-full transition-all duration-500 flex items-center justify-between px-6 py-3 border ${scrolled ? 'bg-white/70 backdrop-blur-xl border-white/40 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)]' : 'bg-transparent border-transparent'}`}>
                 {/* Logo */}
-                <Link to="/" className="flex items-center gap-3 group hover:opacity-100 transition-all" aria-label="Zionlead Home">
-                    <div className="relative flex items-center justify-center w-10 h-10 rounded-[14px] bg-gradient-to-b from-slate-900 to-black shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] ring-1 ring-white/10 overflow-hidden transform group-hover:scale-105 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <Layers className="w-5 h-5 text-white/90 drop-shadow-sm" />
+                <Link to="/" className="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="Zionlead Home">
+                    <div className="h-10 sm:h-11 w-10 sm:w-11 overflow-hidden flex-shrink-0">
+                        <img src="/zionlead-logo.png" alt="Zionlead" className="h-full w-auto object-left object-contain mix-blend-multiply" />
                     </div>
-                    <span className="font-display font-bold text-[22px] tracking-tight text-slate-900 hidden sm:flex items-center">
-                        Zion<span className="text-slate-400 font-medium">lead</span><span className="text-cyan-500 -ml-0.5">.</span>
+                    <span className="font-display font-bold text-base sm:text-xl tracking-tight text-gradient-cyan">
+                        Zionlead
                     </span>
                 </Link>
 
