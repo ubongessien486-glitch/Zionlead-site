@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Layers } from 'lucide-react';
 
 const navLinks = [
     { label: 'Home', path: '/' },
@@ -44,10 +44,13 @@ export default function Header() {
         <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4 transition-all duration-700 w-full pointer-events-none">
             <div className={`pointer-events-auto w-full max-w-5xl rounded-full transition-all duration-500 flex items-center justify-between px-6 py-3 border ${scrolled ? 'bg-white/70 backdrop-blur-xl border-white/40 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)]' : 'bg-transparent border-transparent'}`}>
                 {/* Logo */}
-                <Link to="/" className="flex items-center gap-3 group hover:opacity-90 transition-opacity" aria-label="Zionlead Home">
-                    <img src="/zionlead-logo.jpg" alt="Zionlead" className="h-14 w-auto object-contain mix-blend-multiply saturate-150 contrast-125 drop-shadow-md" />
-                    <span className="font-display font-semibold text-xl tracking-tight text-gradient-logo hidden sm:block">
-                        Zionlead
+                <Link to="/" className="flex items-center gap-3 group hover:opacity-100 transition-all" aria-label="Zionlead Home">
+                    <div className="relative flex items-center justify-center w-10 h-10 rounded-[14px] bg-gradient-to-b from-slate-900 to-black shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] ring-1 ring-white/10 overflow-hidden transform group-hover:scale-105 transition-all duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <Layers className="w-5 h-5 text-white/90 drop-shadow-sm" />
+                    </div>
+                    <span className="font-display font-bold text-[22px] tracking-tight text-slate-900 hidden sm:flex items-center">
+                        Zion<span className="text-slate-400 font-medium">lead</span><span className="text-cyan-500 -ml-0.5">.</span>
                     </span>
                 </Link>
 
@@ -104,7 +107,7 @@ export default function Header() {
                 <div className="absolute top-20 left-4 right-4 bg-white/90 backdrop-blur-2xl rounded-3xl border border-white/50 shadow-2xl z-40 p-6 flex flex-col gap-4 pointer-events-auto animate-slide-in">
                     {navLinks.map((link) => (
                         <div key={link.path}>
-                            <Link to={link.path} className={`block text-lg font-medium py-2 ${isActive(link.path) ? 'text-blue-600' : 'text-slate-900'}`}>
+                            <Link to={link.path} className={`block text-lg font-medium py-2 ${isActive(link.path) ? 'text-black' : 'text-slate-900'}`}>
                                 {link.label}
                             </Link>
                             {link.children && (
