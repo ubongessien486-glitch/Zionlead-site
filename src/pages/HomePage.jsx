@@ -55,21 +55,21 @@ export default function HomePage() {
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
 
-                            <h1 ref={heroTitle} className="font-montserrat font-black text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
+                            <h1 ref={heroTitle} className="font-display font-black text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
                                 <span className="text-slate-800 block">Pioneering</span>
-                                <span className="text-gradient-cyan block">Possibilities</span>
+                                <span className="text-teal-600 block">Possibilities</span>
                             </h1>
                             <p ref={heroSub} className="text-slate-500 text-lg font-light leading-relaxed max-w-xl mb-10">
                                 We design, build, and manage innovative IT solutions that transform businesses{' '}
-                                <em className="text-cyan-600 not-italic font-medium">remotely</em>,{' '}
-                                <em className="text-emerald-600 not-italic font-medium">efficiently</em>, and{' '}
+                                <em className="text-teal-600 not-italic font-medium">remotely</em>,{' '}
+                                <em className="text-teal-600 not-italic font-medium">efficiently</em>, and{' '}
                                 <em className="text-slate-800 not-italic font-medium">excellently</em>.
                             </p>
                             <div ref={heroCta} className="flex flex-col sm:flex-row gap-4">
-                                <Link to="/contact" className="group flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
+                                <Link to="/contact" className="group flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white bg-teal-600 rounded-full hover:bg-teal-700 hover:shadow-lg hover:shadow-teal-600/25 hover:scale-105 transition-all duration-300">
                                     Get a Consultation <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <Link to="/services" className="group flex items-center justify-center gap-2 px-8 py-4 font-semibold text-cyan-600 border border-cyan-300 rounded-full hover:border-cyan-500 hover:bg-cyan-50 hover:scale-105 transition-all duration-300">
+                                <Link to="/services" className="group flex items-center justify-center gap-2 px-8 py-4 font-semibold text-gray-700 border border-gray-300 rounded-full hover:border-teal-600 hover:bg-gray-50 hover:scale-105 transition-all duration-300">
                                     Explore Our Services <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
                                 </Link>
                             </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
                     </div>
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl text-slate-800 leading-tight mb-6">
+                            <h2 className="font-display font-bold text-4xl lg:text-5xl text-slate-800 leading-tight mb-6">
                                 Your Trusted Partner in{' '}
                                 <span className="text-gradient-cyan">Digital Transformation</span>
                             </h2>
@@ -159,7 +159,7 @@ export default function HomePage() {
                             <span className="text-xs font-semibold tracking-widest text-cyan-600 uppercase">What We Do</span>
                             <div className="h-[2px] w-12 bg-gradient-to-r from-emerald-400 to-transparent rounded-full" />
                         </div>
-                        <h2 className="font-montserrat font-bold text-4xl lg:text-5xl text-slate-800 mb-4">
+                        <h2 className="font-display font-bold text-4xl lg:text-5xl text-slate-800 mb-4">
                             Our <span className="text-gradient-cyan">Services</span>
                         </h2>
                     </div>
@@ -175,7 +175,7 @@ export default function HomePage() {
                                         )}
                                     </div>
                                 </div>
-                                <h3 className="font-montserrat font-bold text-lg text-slate-800 mb-2">{svc.title}</h3>
+                                <h3 className="font-display font-bold text-lg text-slate-800 mb-2">{svc.title}</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed">{svc.desc}</p>
                             </Link>
                         ))}
@@ -188,13 +188,13 @@ export default function HomePage() {
                                         <svc.icon className={`w-7 h-7 ${svc.accent}`} strokeWidth={1.5} />
                                     </div>
                                 </div>
-                                <h3 className="font-montserrat font-bold text-lg text-slate-800 mb-2">{svc.title}</h3>
+                                <h3 className="font-display font-bold text-lg text-slate-800 mb-2">{svc.title}</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed">{svc.desc}</p>
                             </Link>
                         ))}
                     </div>
                     <div className="text-center mt-12">
-                        <Link to="/services" className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
+                        <Link to="/services" className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white bg-teal-600 rounded-full hover:bg-teal-700 hover:shadow-lg hover:shadow-teal-600/25 hover:scale-105 transition-all duration-300">
                             View All Services <ArrowRight className="w-5 h-5" />
                         </Link>
                     </div>
@@ -210,7 +210,7 @@ export default function HomePage() {
                                 <div className="h-[2px] w-12 bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full" />
                                 <span className="text-xs font-semibold tracking-widest text-cyan-600 uppercase">Why Choose Us</span>
                             </div>
-                            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl text-slate-800 leading-tight mb-8">
+                            <h2 className="font-display font-bold text-4xl lg:text-5xl text-slate-800 leading-tight mb-8">
                                 Why <span className="text-gradient-cyan">Zionlead</span>?
                             </h2>
                             <div className="space-y-5">
