@@ -7,7 +7,7 @@ import { CircuitLines } from './TechIllustrations';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-    { icon: Users, value: '500+', label: 'Clients Served' },
+    { icon: Users, value: 'Active', label: 'Client Focus' },
     { icon: Globe2, value: '12+', label: 'Countries Reached' },
     { icon: Building2, value: '8+', label: 'Years of Excellence' },
     { icon: TrendingUp, value: '98%', label: 'Client Satisfaction' },
@@ -82,7 +82,7 @@ export default function About() {
                                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                                     <span className="text-sm font-semibold text-slate-700">Enterprise-Grade Infrastructure</span>
                                 </div>
-                                <p className="text-xs text-slate-400 mt-1">Trusted by 500+ businesses globally</p>
+                                
                             </div>
                         </div>
                     </div>

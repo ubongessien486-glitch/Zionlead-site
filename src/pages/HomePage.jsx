@@ -73,19 +73,7 @@ export default function HomePage() {
                                     Explore Our Services <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
                                 </Link>
                             </div>
-                            <div className="mt-10 flex items-center gap-4">
-                                <div className="flex -space-x-3">
-                                    {[
-                                        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-                                        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face',
-                                        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face',
-                                        'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&h=80&fit=crop&crop=face',
-                                    ].map((src, i) => (
-                                        <img key={i} src={src} alt="" className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-sm" />
-                                    ))}
-                                </div>
-                                <p className="text-slate-500 text-sm"><span className="text-slate-800 font-semibold">500+</span> businesses transformed globally</p>
-                            </div>
+
                         </div>
                         <div ref={heroImg} className="relative hidden lg:block">
                             <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/30 to-emerald-200/30 rounded-3xl blur-3xl scale-90" />
