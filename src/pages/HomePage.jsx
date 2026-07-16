@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Globe, Shield, Cpu, GraduationCap, Users, Cloud, Code2, Package, Wifi, Award, Layers, Target, Handshake, CheckCircle2 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import usePageMeta from '../hooks/usePageMeta';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,7 @@ const reasons = [
 ];
 
 export default function HomePage() {
+    usePageMeta('Home', 'Zionlead Technology Limited — premier IT solutions company specialising in IT training, outsourcing, cloud infrastructure, software development and IT procurement across Africa and beyond.');
     const heroTitle = useRef(null);
     const heroSub = useRef(null);
     const heroCta = useRef(null);
@@ -78,7 +80,7 @@ export default function HomePage() {
                         <div ref={heroImg} className="relative hidden lg:block">
                             <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/30 to-emerald-200/30 rounded-3xl blur-3xl scale-90" />
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-white/50 bg-slate-100">
-                                <img src="/zionlead_coders.png" alt="Young Nigerian Gen-Z coders excited at Zionlead" className="w-full h-[480px] object-cover scale-105 hover:scale-100 transition-transform duration-1000 ease-out" />
+                                <img src="/team-photo.png" alt="Young Nigerian Gen-Z coders excited at Zionlead" className="w-full h-[480px] object-cover scale-105 hover:scale-100 transition-transform duration-1000 ease-out" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent pointer-events-none" />
                                 <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg border border-slate-100">
                                     <div className="flex items-center gap-3">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Users, Package, Cloud, Code2, CheckCircle2, ArrowRight } from 'lucide-react';
+import usePageMeta from '../hooks/usePageMeta';
 
 const services = [
     {
@@ -106,6 +107,7 @@ const services = [
 ];
 
 export default function ServicesPage() {
+    usePageMeta('Services', 'Explore Zionlead’s full range of IT services: IT Training, Outsourcing, Cloud Infrastructure, Software Development, and IT Procurement.');
     return (
         <div className="pt-24">
             {/* Page Hero */}

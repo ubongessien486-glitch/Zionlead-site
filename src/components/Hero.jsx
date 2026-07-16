@@ -58,8 +58,8 @@ export default function Hero() {
                 {/* Hero Image in dynamic frame */}
                 <div ref={imgRef} className="relative w-full max-w-6xl aspect-[4/3] sm:aspect-[16/9] md:aspect-[2.35/1] mt-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-slate-200 border border-black/5 bg-slate-100">
                     <img
-                        src="/nigerian_genz_coders.png"
-                        alt="Excited Nigerian Gen Z team coding together"
+                        src="/team-photo.png"
+                        alt="Young Nigerian and American tech team in suits"
                         className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-[2s] ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

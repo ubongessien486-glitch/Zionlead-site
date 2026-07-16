@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend((process.env.RESEND_API_KEY || '').trim());
 
-const ADMIN_EMAIL = 'admin@zionlead.com.ng';
+const ADMIN_EMAIL = 'ubongessien486@gmail.com';
 const FROM_EMAIL = 'Zionlead Contact Form <onboarding@resend.dev>';
 const SUBJECT = 'New Contact Form Submission - Zionlead';
 
@@ -136,7 +136,7 @@ ${submittedAt} (WAT)
     try {
         const { data, error } = await resend.emails.send({
             from: FROM_EMAIL,
-            to: [ADMIN_EMAIL],
+            to: ['admin@zionlead.com.ng'],
             replyTo: email.trim(),
             subject: SUBJECT,
             html: htmlBody,
@@ -145,7 +145,7 @@ ${submittedAt} (WAT)
 
         if (error) {
             console.error('[contact] Resend API error:', error);
-            return res.status(500).json({ error: 'Failed to send email. Please try again later.' });
+            return res.status(500).json({ error: `Failed to send email: ${error.message}` });
         }
 
         console.log('[contact] Email sent successfully. ID:', data?.id);

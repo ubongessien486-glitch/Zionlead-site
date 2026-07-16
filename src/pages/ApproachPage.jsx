@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Search, PenTool, Rocket, Headphones, ArrowRight } from 'lucide-react';
+import usePageMeta from '../hooks/usePageMeta';
 
 const steps = [
     {
@@ -38,6 +39,7 @@ const steps = [
 ];
 
 export default function ApproachPage() {
+    usePageMeta('Our Approach', 'Discover how Zionlead delivers IT projects — from Discovery and Strategy through to Implementation and ongoing Support.');
     return (
         <div className="pt-24">
             {/* Page Hero */}

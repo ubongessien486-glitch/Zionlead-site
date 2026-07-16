@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
 
 const socialLinks = [
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/zionlead-technology-limited', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/zionleadtech', label: 'Twitter' },
+    { icon: Instagram, href: 'https://www.instagram.com/zionleadtech', label: 'Instagram' },
     { icon: Mail, href: 'mailto:info@zionlead.com.ng', label: 'Email' },
 ];
 

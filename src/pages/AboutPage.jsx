@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, Eye, Heart, Lightbulb, Users, Sparkles, Globe, Clock, TrendingDown, Scale } from 'lucide-react';
+import usePageMeta from '../hooks/usePageMeta';
 
 const coreValues = [
     { icon: Star, title: 'Excellence', desc: 'We pursue the highest standards in every solution we deliver.' },
@@ -17,6 +18,7 @@ const remoteAdvantages = [
 ];
 
 export default function AboutPage() {
+    usePageMeta('About Us', 'Learn about Zionlead Technology Limited — our story, mission, vision, core values, and the remote-first advantage that sets us apart.');
     return (
         <div className="pt-24">
             {/* Page Hero */}

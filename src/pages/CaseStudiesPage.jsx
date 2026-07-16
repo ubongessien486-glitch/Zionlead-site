@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Cloud, Mail, Code2 } from 'lucide-react';
+import usePageMeta from '../hooks/usePageMeta';
 
 const caseStudies = [
     {
@@ -30,6 +31,7 @@ const caseStudies = [
 ];
 
 export default function CaseStudiesPage() {
+    usePageMeta('Case Studies', 'See how Zionlead has helped organisations deploy Azure infrastructure, migrate to Microsoft 365, and build custom ERP integrations.');
     return (
         <div className="pt-24">
             {/* Page Hero */}

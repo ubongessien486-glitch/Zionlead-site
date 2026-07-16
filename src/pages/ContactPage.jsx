@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Globe, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import usePageMeta from '../hooks/usePageMeta';
 
 const serviceOptions = [
     'IT Training',
@@ -13,6 +14,7 @@ const serviceOptions = [
 const INITIAL_FORM = { name: '', company: '', email: '', phone: '', service: '', message: '' };
 
 export default function ContactPage() {
+    usePageMeta('Contact Us', 'Get in touch with Zionlead Technology Limited. Send us a message for IT training, outsourcing, cloud infrastructure, software development or procurement enquiries.');
     const [form, setForm] = useState(INITIAL_FORM);
     const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
     const [errorMsg, setErrorMsg] = useState('');
