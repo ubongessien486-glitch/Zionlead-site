@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend((process.env.RESEND_API_KEY || '').trim());
 
 const ADMIN_EMAIL = 'admin@zionlead.com.ng';
 const FROM_EMAIL = 'Zionlead Contact Form <onboarding@resend.dev>';
