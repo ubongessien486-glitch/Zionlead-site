@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Globe, Send } from 'lucide-react';
+import { Mail, Globe, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const serviceOptions = [
     'IT Training',
@@ -10,9 +10,78 @@ const serviceOptions = [
     'Other',
 ];
 
+const INITIAL_FORM = { name: '', company: '', email: '', phone: '', service: '', message: '' };
+
 export default function ContactPage() {
-    const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', service: '', message: '' });
-    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+    const [form, setForm] = useState(INITIAL_FORM);
+    const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+    const [errorMsg, setErrorMsg] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
+        // Clear field error on change
+        if (fieldErrors[name]) {
+            setFieldErrors((prev) => ({ ...prev, [name]: '' }));
+        }
+    };
+
+    const validate = () => {
+        const errors = {};
+        if (!form.name.trim()) errors.name = 'Name is required.';
+        if (!form.email.trim()) {
+            errors.email = 'Email is required.';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+            errors.email = 'Please enter a valid email address.';
+        }
+        if (!form.message.trim()) errors.message = 'Message is required.';
+        return errors;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrorMsg('');
+
+        const errors = validate();
+        if (Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            return;
+        }
+
+        setStatus('loading');
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: form.name.trim(),
+                    company: form.company.trim(),
+                    email: form.email.trim(),
+                    phone: form.phone.trim(),
+                    service: form.service,
+                    message: form.message.trim(),
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.error || 'Something went wrong. Please try again.');
+            }
+
+            setStatus('success');
+            setForm(INITIAL_FORM);
+            setFieldErrors({});
+        } catch (err) {
+            console.error('[ContactPage] Submission error:', err.message);
+            setErrorMsg(err.message || 'Failed to send your message. Please try again later.');
+            setStatus('error');
+        }
+    };
+
+    const isLoading = status === 'loading';
 
     return (
         <div className="pt-24">
@@ -71,54 +140,146 @@ export default function ContactPage() {
                         <div className="lg:col-span-3">
                             <div className="bg-white rounded-3xl border border-slate-100 shadow-lg p-8 lg:p-10">
                                 <h3 className="font-montserrat font-bold text-xl text-slate-800 mb-6">Send us a message</h3>
-                                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+
+                                {/* Success Banner */}
+                                {status === 'success' && (
+                                    <div className="mb-6 flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                        <p className="text-emerald-800 text-sm font-medium leading-relaxed">
+                                            Thank you for contacting Zionlead. We have received your message and will get back to you shortly.
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Error Banner */}
+                                {status === 'error' && errorMsg && (
+                                    <div className="mb-6 flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                                        <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                                        <p className="text-red-800 text-sm font-medium leading-relaxed">{errorMsg}</p>
+                                    </div>
+                                )}
+
+                                <form className="space-y-5" onSubmit={handleSubmit} noValidate>
                                     <div className="grid sm:grid-cols-2 gap-5">
                                         <div>
-                                            <label className="block text-sm font-medium text-slate-600 mb-1.5">Name</label>
-                                            <input type="text" name="name" value={form.name} onChange={handleChange}
-                                                className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all"
-                                                placeholder="Your name" />
+                                            <label className="block text-sm font-medium text-slate-600 mb-1.5">
+                                                Name <span className="text-red-400">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={form.name}
+                                                onChange={handleChange}
+                                                disabled={isLoading}
+                                                className={`w-full px-4 py-3 bg-slate-50 rounded-xl border text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${fieldErrors.name ? 'border-red-400 bg-red-50/30' : 'border-slate-200'}`}
+                                                placeholder="Your name"
+                                            />
+                                            {fieldErrors.name && (
+                                                <p className="mt-1 text-xs text-red-500">{fieldErrors.name}</p>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-slate-600 mb-1.5">Company</label>
-                                            <input type="text" name="company" value={form.company} onChange={handleChange}
-                                                className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all"
-                                                placeholder="Company name" />
+                                            <input
+                                                type="text"
+                                                name="company"
+                                                value={form.company}
+                                                onChange={handleChange}
+                                                disabled={isLoading}
+                                                className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                                                placeholder="Company name"
+                                            />
                                         </div>
                                     </div>
+
                                     <div className="grid sm:grid-cols-2 gap-5">
                                         <div>
-                                            <label className="block text-sm font-medium text-slate-600 mb-1.5">Email</label>
-                                            <input type="email" name="email" value={form.email} onChange={handleChange}
-                                                className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all"
-                                                placeholder="email@example.com" />
+                                            <label className="block text-sm font-medium text-slate-600 mb-1.5">
+                                                Email <span className="text-red-400">*</span>
+                                            </label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={form.email}
+                                                onChange={handleChange}
+                                                disabled={isLoading}
+                                                className={`w-full px-4 py-3 bg-slate-50 rounded-xl border text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${fieldErrors.email ? 'border-red-400 bg-red-50/30' : 'border-slate-200'}`}
+                                                placeholder="email@example.com"
+                                            />
+                                            {fieldErrors.email && (
+                                                <p className="mt-1 text-xs text-red-500">{fieldErrors.email}</p>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-slate-600 mb-1.5">Phone</label>
-                                            <input type="tel" name="phone" value={form.phone} onChange={handleChange}
-                                                className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all"
-                                                placeholder="+234 xxx xxx xxxx" />
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                value={form.phone}
+                                                onChange={handleChange}
+                                                disabled={isLoading}
+                                                className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                                                placeholder="+234 xxx xxx xxxx"
+                                            />
                                         </div>
                                     </div>
+
                                     <div>
                                         <label className="block text-sm font-medium text-slate-600 mb-1.5">Service Needed</label>
-                                        <select name="service" value={form.service} onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all appearance-none">
+                                        <select
+                                            name="service"
+                                            value={form.service}
+                                            onChange={handleChange}
+                                            disabled={isLoading}
+                                            className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all appearance-none disabled:opacity-60 disabled:cursor-not-allowed"
+                                        >
                                             <option value="">Select a service</option>
                                             {serviceOptions.map((s) => (
                                                 <option key={s} value={s}>{s}</option>
                                             ))}
                                         </select>
                                     </div>
+
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-600 mb-1.5">Message</label>
-                                        <textarea name="message" value={form.message} onChange={handleChange} rows={5}
-                                            className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all resize-none"
-                                            placeholder="Tell us about your project..." />
+                                        <label className="block text-sm font-medium text-slate-600 mb-1.5">
+                                            Message <span className="text-red-400">*</span>
+                                        </label>
+                                        <textarea
+                                            name="message"
+                                            value={form.message}
+                                            onChange={handleChange}
+                                            rows={5}
+                                            disabled={isLoading}
+                                            className={`w-full px-4 py-3 bg-slate-50 rounded-xl border text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed ${fieldErrors.message ? 'border-red-400 bg-red-50/30' : 'border-slate-200'}`}
+                                            placeholder="Tell us about your project..."
+                                        />
+                                        {fieldErrors.message && (
+                                            <p className="mt-1 text-xs text-red-500">{fieldErrors.message}</p>
+                                        )}
                                     </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] transition-all duration-300">
-                                        <Send className="w-5 h-5" /> Send Message
+
+                                    <button
+                                        type="submit"
+                                        id="contact-page-submit-btn"
+                                        disabled={isLoading}
+                                        className="w-full flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
+                                    >
+                                        {isLoading ? (
+                                            <>
+                                                <Loader2 className="w-5 h-5 animate-spin" />
+                                                Sending…
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Send className="w-5 h-5" />
+                                                Send Message
+                                            </>
+                                        )}
                                     </button>
+
+                                    <p className="text-center text-xs text-slate-400">
+                                        Fields marked <span className="text-red-400">*</span> are required.
+                                    </p>
                                 </form>
                             </div>
                         </div>

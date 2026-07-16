@@ -1,12 +1,28 @@
-import React, { useEffect, useRef } from 'react';
-import { Mail, Phone, MapPin, ArrowUpRight, Send } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Mail, Phone, MapPin, ArrowUpRight, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const serviceOptions = [
+    'IT Training',
+    'IT Outsourcing',
+    'IT Procurement',
+    'Infrastructure & Cloud',
+    'Software Development',
+    'Other',
+];
+
+const INITIAL_FORM = { name: '', email: '', service: '', message: '' };
+
 export default function Contact() {
     const sectionRef = useRef(null);
+
+    const [form, setForm] = useState(INITIAL_FORM);
+    const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+    const [errorMsg, setErrorMsg] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -23,6 +39,70 @@ export default function Contact() {
         }, sectionRef);
         return () => ctx.revert();
     }, []);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
+        if (fieldErrors[name]) {
+            setFieldErrors((prev) => ({ ...prev, [name]: '' }));
+        }
+    };
+
+    const validate = () => {
+        const errors = {};
+        if (!form.name.trim()) errors.name = 'Name is required.';
+        if (!form.email.trim()) {
+            errors.email = 'Email is required.';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+            errors.email = 'Enter a valid email address.';
+        }
+        if (!form.message.trim()) errors.message = 'Message is required.';
+        return errors;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrorMsg('');
+
+        const errors = validate();
+        if (Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            return;
+        }
+
+        setStatus('loading');
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: form.name.trim(),
+                    company: '',
+                    email: form.email.trim(),
+                    phone: '',
+                    service: form.service,
+                    message: form.message.trim(),
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.error || 'Something went wrong. Please try again.');
+            }
+
+            setStatus('success');
+            setForm(INITIAL_FORM);
+            setFieldErrors({});
+        } catch (err) {
+            console.error('[Contact] Submission error:', err.message);
+            setErrorMsg(err.message || 'Failed to send your message. Please try again later.');
+            setStatus('error');
+        }
+    };
+
+    const isLoading = status === 'loading';
 
     return (
         <section id="contact" ref={sectionRef} className="relative py-28 overflow-hidden bg-white">
@@ -48,7 +128,7 @@ export default function Contact() {
                     {/* Contact info cards */}
                     <div className="space-y-5">
                         {[
-                            { icon: Mail, label: 'Email Us', value: 'hello@zionlead.com', sub: 'We reply within 24 hours' },
+                            { icon: Mail, label: 'Email Us', value: 'info@zionlead.com.ng', sub: 'We reply within 24 hours' },
                             { icon: Phone, label: 'Call Us', value: '+1 (800) ZIONLEAD', sub: 'Mon-Fri, 9am–6pm UTC' },
                             { icon: MapPin, label: 'Remote-First', value: 'Global Operations', sub: 'Serving clients worldwide' },
                         ].map(({ icon: Icon, label, value, sub }) => (
@@ -69,47 +149,109 @@ export default function Contact() {
                     {/* Quick Contact Form */}
                     <div className="contact-card bg-white rounded-2xl p-8 border border-slate-100 shadow-lg shadow-slate-100/50">
                         <h3 className="font-montserrat font-bold text-xl text-slate-800 mb-6">Send Us a Message</h3>
-                        <div className="space-y-4">
+
+                        {/* Success Banner */}
+                        {status === 'success' && (
+                            <div className="mb-5 flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                <p className="text-emerald-800 text-sm font-medium leading-relaxed">
+                                    Thank you for contacting Zionlead. We have received your message and will get back to you shortly.
+                                </p>
+                            </div>
+                        )}
+
+                        {/* Error Banner */}
+                        {status === 'error' && errorMsg && (
+                            <div className="mb-5 flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                                <p className="text-red-800 text-sm font-medium leading-relaxed">{errorMsg}</p>
+                            </div>
+                        )}
+
+                        <form className="space-y-4" onSubmit={handleSubmit} noValidate>
                             <div>
-                                <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">Full Name</label>
+                                <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">
+                                    Full Name <span className="text-red-400">*</span>
+                                </label>
                                 <input
                                     type="text"
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleChange}
+                                    disabled={isLoading}
                                     placeholder="Your full name"
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all"
+                                    className={`w-full bg-slate-50 border rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${fieldErrors.name ? 'border-red-400 bg-red-50/30' : 'border-slate-200'}`}
                                 />
+                                {fieldErrors.name && <p className="mt-1 text-xs text-red-500">{fieldErrors.name}</p>}
                             </div>
+
                             <div>
-                                <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">Email Address</label>
+                                <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">
+                                    Email Address <span className="text-red-400">*</span>
+                                </label>
                                 <input
                                     type="email"
+                                    name="email"
+                                    value={form.email}
+                                    onChange={handleChange}
+                                    disabled={isLoading}
                                     placeholder="you@company.com"
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all"
+                                    className={`w-full bg-slate-50 border rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${fieldErrors.email ? 'border-red-400 bg-red-50/30' : 'border-slate-200'}`}
                                 />
+                                {fieldErrors.email && <p className="mt-1 text-xs text-red-500">{fieldErrors.email}</p>}
                             </div>
+
                             <div>
                                 <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">Service Interest</label>
-                                <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-600 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all">
+                                <select
+                                    name="service"
+                                    value={form.service}
+                                    onChange={handleChange}
+                                    disabled={isLoading}
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-600 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                                >
                                     <option value="">Select a service…</option>
-                                    <option>IT Training</option>
-                                    <option>IT Outsourcing</option>
-                                    <option>Infrastructure & Cloud</option>
-                                    <option>Software Development</option>
-                                    <option>IT Procurement</option>
+                                    {serviceOptions.map((s) => (
+                                        <option key={s} value={s}>{s}</option>
+                                    ))}
                                 </select>
                             </div>
+
                             <div>
-                                <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">Message</label>
+                                <label className="text-xs text-slate-500 uppercase tracking-wide mb-1.5 block">
+                                    Message <span className="text-red-400">*</span>
+                                </label>
                                 <textarea
+                                    name="message"
+                                    value={form.message}
+                                    onChange={handleChange}
                                     rows={4}
+                                    disabled={isLoading}
                                     placeholder="Tell us about your project or challenge…"
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all resize-none"
+                                    className={`w-full bg-slate-50 border rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed ${fieldErrors.message ? 'border-red-400 bg-red-50/30' : 'border-slate-200'}`}
                                 />
+                                {fieldErrors.message && <p className="mt-1 text-xs text-red-500">{fieldErrors.message}</p>}
                             </div>
-                            <button className="w-full flex items-center justify-center gap-2 px-6 py-3.5 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] transition-all duration-300">
-                                Send Message
-                                <Send className="w-4 h-4" />
+
+                            <button
+                                type="submit"
+                                id="contact-section-submit-btn"
+                                disabled={isLoading}
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 font-semibold text-white bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        Sending…
+                                    </>
+                                ) : (
+                                    <>
+                                        Send Message
+                                        <Send className="w-4 h-4" />
+                                    </>
+                                )}
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
