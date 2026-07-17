@@ -3,12 +3,16 @@ import { Resend } from 'resend';
 const resend = new Resend((process.env.RESEND_API_KEY || '').trim());
 
 // The resend.dev sandbox sender only delivers to the Resend account owner's own
-// address, so TO_EMAIL is the owner's inbox until zionlead.com.ng is verified at
-// resend.com/domains. Once verified, set both env vars in Vercel to switch over:
+// address, so TO_EMAIL stays the owner's inbox until zionlead.com.ng is verified
+// at resend.com/domains. Once verified, set both env vars in Vercel to switch
+// over — CONTACT_TO_EMAIL takes a comma-separated list:
 //   CONTACT_FROM_EMAIL="Zionlead Contact Form <noreply@zionlead.com.ng>"
-//   CONTACT_TO_EMAIL="admin@zionlead.com.ng"
+//   CONTACT_TO_EMAIL="admin@zionlead.com.ng,ubongessien486@gmail.com"
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Zionlead Contact Form <onboarding@resend.dev>';
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'ubongessien486@gmail.com';
+const TO_EMAIL = (process.env.CONTACT_TO_EMAIL || 'ubongessien486@gmail.com')
+    .split(',')
+    .map((addr) => addr.trim())
+    .filter(Boolean);
 const SUBJECT = 'New Contact Form Submission - Zionlead';
 
 export default async function handler(req, res) {
@@ -141,7 +145,7 @@ ${submittedAt} (WAT)
     try {
         const { data, error } = await resend.emails.send({
             from: FROM_EMAIL,
-            to: [TO_EMAIL],
+            to: TO_EMAIL,
             replyTo: email.trim(),
             subject: SUBJECT,
             html: htmlBody,
