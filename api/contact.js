@@ -1,19 +1,42 @@
 import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 const resend = new Resend((process.env.RESEND_API_KEY || '').trim());
 
-// The resend.dev sandbox sender only delivers to the Resend account owner's own
-// address, so TO_EMAIL stays the owner's inbox until zionlead.com.ng is verified
-// at resend.com/domains. Once verified, set both env vars in Vercel to switch
-// over — CONTACT_TO_EMAIL takes a comma-separated list:
-//   CONTACT_FROM_EMAIL="Zionlead Contact Form <noreply@zionlead.com.ng>"
-//   CONTACT_TO_EMAIL="admin@zionlead.com.ng,ubongessien486@gmail.com"
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Zionlead Contact Form <onboarding@resend.dev>';
-const TO_EMAIL = (process.env.CONTACT_TO_EMAIL || 'ubongessien486@gmail.com')
+// ── Delivery strategy ────────────────────────────────────────────────────────
+// This handler sends through whichever transport is configured, so the site can
+// go live before the Resend domain is verified:
+//
+//   SMTP (preferred when configured) — set these in Vercel to deliver straight to
+//   admin@zionlead.com.ng via the domain's own mail server. Needs NO DNS records:
+//     SMTP_HOST=mail.zionlead.com.ng
+//     SMTP_PORT=465
+//     SMTP_USER=noreply@zionlead.com.ng   (an existing cPanel mailbox)
+//     SMTP_PASS=<that mailbox's password>
+//
+//   Resend (fallback) — used when SMTP is not configured. Its sandbox sender only
+//   reaches the Resend account owner's own inbox until zionlead.com.ng is verified
+//   at resend.com/domains, so the fallback recipient stays that owner inbox.
+//
+// CONTACT_TO_EMAIL overrides the recipient for either transport (comma-separated).
+const SMTP_HOST = (process.env.SMTP_HOST || '').trim();
+const SMTP_USER = (process.env.SMTP_USER || '').trim();
+const SMTP_PASS = process.env.SMTP_PASS || '';
+const SMTP_ENABLED = Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS);
+
+const SUBJECT = 'New Contact Form Submission - Zionlead';
+
+// Sender: SMTP servers require the From to be the authenticated mailbox.
+const FROM_EMAIL = SMTP_ENABLED
+    ? (process.env.CONTACT_FROM_EMAIL || `Zionlead Contact Form <${SMTP_USER}>`)
+    : (process.env.CONTACT_FROM_EMAIL || 'Zionlead Contact Form <onboarding@resend.dev>');
+
+// Recipient: default to the client's admin mailbox once SMTP can reach it,
+// otherwise the Resend-owner inbox that the sandbox sender is allowed to hit.
+const TO_EMAIL = (process.env.CONTACT_TO_EMAIL || (SMTP_ENABLED ? 'admin@zionlead.com.ng' : 'ubongessien486@gmail.com'))
     .split(',')
     .map((addr) => addr.trim())
     .filter(Boolean);
-const SUBJECT = 'New Contact Form Submission - Zionlead';
 
 export default async function handler(req, res) {
     // Only allow POST
@@ -141,8 +164,32 @@ Submitted At:
 ${submittedAt} (WAT)
 `.trim();
 
-    // ── Send email via Resend ───────────────────────────────────────────────
+    // ── Send email ──────────────────────────────────────────────────────────
     try {
+        if (SMTP_ENABLED) {
+            // Deliver via the domain's own mail server (no DNS verification needed).
+            const port = Number(process.env.SMTP_PORT || 465);
+            const transporter = nodemailer.createTransport({
+                host: SMTP_HOST,
+                port,
+                secure: port === 465, // 465 = implicit TLS; 587 = STARTTLS
+                auth: { user: SMTP_USER, pass: SMTP_PASS },
+            });
+
+            const info = await transporter.sendMail({
+                from: FROM_EMAIL,
+                to: TO_EMAIL,
+                replyTo: email.trim(),
+                subject: SUBJECT,
+                html: htmlBody,
+                text: textBody,
+            });
+
+            console.log('[contact] Email sent via SMTP. messageId:', info?.messageId);
+            return res.status(200).json({ success: true, id: info?.messageId });
+        }
+
+        // Fallback: Resend.
         const { data, error } = await resend.emails.send({
             from: FROM_EMAIL,
             to: TO_EMAIL,
@@ -157,7 +204,7 @@ ${submittedAt} (WAT)
             return res.status(500).json({ error: `Failed to send email: ${error.message}` });
         }
 
-        console.log('[contact] Email sent successfully. ID:', data?.id);
+        console.log('[contact] Email sent via Resend. ID:', data?.id);
         return res.status(200).json({ success: true, id: data?.id });
 
     } catch (err) {
